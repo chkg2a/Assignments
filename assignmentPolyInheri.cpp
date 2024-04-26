@@ -81,7 +81,9 @@ public:
   }
   void displayWeeklyPay() {
     calculateSalary();
-    cout << name << " (" << role << "): $" << salary << endl;
+    cout << name << " (" << role << "): $" << salary << " ("
+         << hoursWorked - overTimeWork << " regular hours + " << overTimeWork
+         << " overtime hours)" << endl;
   }
 };
 
@@ -137,38 +139,46 @@ int main(int argc, char *argv[]) {
     cout << "How many Full Times?" << endl;
     cin >> noOfFullTime;
     cin.ignore();
-    if ((noOfFullTime + noOfPartTime + noOfContractors) == noOfEmployees ){ break; }
+    if ((noOfFullTime + noOfPartTime + noOfContractors) == noOfEmployees) {
+      break;
+    }
     cout << "How many Part Times?" << endl;
     cin >> noOfPartTime;
     cin.ignore();
-    if ((noOfFullTime + noOfPartTime + noOfContractors) == noOfEmployees ){ break; }
+    if ((noOfFullTime + noOfPartTime + noOfContractors) == noOfEmployees) {
+      break;
+    }
     cout << "How many Contractors?" << endl;
     cin >> noOfContractors;
     cin.ignore();
   } while ((noOfFullTime + noOfPartTime + noOfContractors) != noOfEmployees);
 
-  while (true){
+  cout << endl;
+
+  while (true) {
     int z = 0;
     for (int q = 0; q < noOfFullTime; q++) {
       ep[z] = new FullTimeEmployee;
       ep[z]->getEmployeeData();
       z++;
+      cout << endl;
     }
     for (int q = 0; q < noOfPartTime; q++) {
       ep[z] = new PartTimeEmployee;
       ep[z]->getEmployeeData();
       z++;
+      cout << endl;
     }
     for (int q = 0; q < noOfContractors; q++) {
       ep[z] = new Contractor;
       ep[z]->getEmployeeData();
       z++;
+      cout << endl;
     }
     break;
   }
 
-  cout << endl;
-
+  cout << "Weekly Payroll:" << endl;
   for (int x = 0; x < noOfEmployees; x++) {
     ep[x]->displayWeeklyPay();
   }
