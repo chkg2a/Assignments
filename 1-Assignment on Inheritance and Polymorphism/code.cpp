@@ -55,6 +55,7 @@ public:
     cout << "Salary: ";
     cin >> salary;
     cin.ignore();
+    calculatePay();
   }
 };
 
@@ -79,6 +80,7 @@ public:
     cout << "Hours Worked: ";
     cin >> hoursWorked;
     cin.ignore();
+    calculatePay();
   }
   void displayWeeklyPay() override {
     calculatePay();
@@ -102,6 +104,7 @@ public:
     cout << "Hours Worked: ";
     cin >> hoursWorked;
     cin.ignore();
+    calculatePay();
   }
 };
 
@@ -160,6 +163,7 @@ int main(int argc, char *argv[]) {
   }
 
   cout << "Weekly Payroll:" << endl;
+  // cout << "Display Employee Details:" << endl;
   for (int x = 0; x < noOfEmployees; x++) {
     ep[x]->displayWeeklyPay();
     // ep[x]->displayEmployeeDetails();
