@@ -1,3 +1,11 @@
+# Fast Reproduce
+
+```shell
+git clone https://github.com/chkg2a/Assignments /tmp/Assignments &&
+cd /tmp/Assignments/1-Assignment\ on\ Inheritance\ and\ Polymorphism/ &&
+g++ code.cpp -o output && ./output
+```
+
 # Code 
 ![](./preview.jpg)
 
