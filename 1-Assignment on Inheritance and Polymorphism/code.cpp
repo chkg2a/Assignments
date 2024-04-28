@@ -13,7 +13,7 @@ protected:
   virtual void calculatePay() = 0;
 
 public:
-  Employee(){
+  Employee() {
     name = "Default";
     role = "Default";
     salary = 0;
@@ -21,7 +21,7 @@ public:
     overTimeWork = 0;
     hoursWorked = 0;
   };
-  Employee & operator=(const Employee &) = delete;
+  Employee &operator=(const Employee &) = delete;
   virtual ~Employee(){};
   virtual void getEmployeeData() = 0;
   virtual void displayWeeklyPay() {
@@ -34,9 +34,7 @@ class FullTimeEmployee final : public Employee {
   void calculatePay() override {}
 
 public:
-  FullTimeEmployee() {
-    Employee::role = "Full-Time";
-  }
+  FullTimeEmployee() { Employee::role = "Full-Time"; }
   void getEmployeeData() override {
     cout << "Enter details for " << role << " Employee" << endl;
     cout << "Name: ";
@@ -52,14 +50,15 @@ class PartTimeEmployee final : public Employee {
     if (hoursWorked > 40) {
       overTimeWork = hoursWorked - 40;
     }
-    salary = ((hoursWorked - overTimeWork) * hourlyRate) +
+    auto makeSalary = [&]() {
+      return ((hoursWorked - overTimeWork) * hourlyRate) +
              (overTimeWork * hourlyRate * 1.5);
+    };
+    salary = makeSalary();
   }
 
 public:
-  PartTimeEmployee() {
-    Employee::role = "Part-Time";
-  }
+  PartTimeEmployee() { Employee::role = "Part-Time"; }
   void getEmployeeData() override {
     cout << "Enter details for " << role << " Employee" << endl;
     cout << "Name: ";
@@ -70,7 +69,7 @@ public:
     cin >> hoursWorked;
     cin.ignore();
   }
-  void displayWeeklyPay() override{
+  void displayWeeklyPay() override {
     calculatePay();
     cout << name << " (" << role << "): $" << salary << " ("
          << hoursWorked - overTimeWork << " regular hours + " << overTimeWork
@@ -79,12 +78,10 @@ public:
 };
 
 class Contractor final : public Employee {
-  void calculatePay() override{ salary = hoursWorked * hourlyRate; }
+  void calculatePay() override { salary = hoursWorked * hourlyRate; }
 
 public:
-  Contractor() {
-    Employee::role = "Contractor";
-  }
+  Contractor() { Employee::role = "Contractor"; }
   void getEmployeeData() override {
     cout << "Enter details for " << role << " Employee" << endl;
     cout << "Name: ";
@@ -155,7 +152,7 @@ int main(int argc, char *argv[]) {
   for (int x = 0; x < noOfEmployees; x++) {
     ep[x]->displayWeeklyPay();
   }
-  
+
   for (int i = 0; i < noOfEmployees; i++) {
     delete (ep[i]);
   }
