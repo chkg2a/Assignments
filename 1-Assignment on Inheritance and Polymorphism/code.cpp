@@ -22,6 +22,14 @@ public:
     hoursWorked = 0;
   };
   Employee &operator=(const Employee &) = delete;
+  virtual void displayEmployeeDetails(){
+    cout << "--------------------------------"<< endl;
+    cout << "Name : " << name << endl;
+    cout << "Role : " << role << endl;
+    cout << "Hourly Rate : " << hourlyRate << endl;
+    cout << "Hours Worked : " << hoursWorked << endl;
+    cout << "Salary : " << salary << endl;
+  }
   virtual ~Employee(){};
   virtual void getEmployeeData() = 0;
   virtual void displayWeeklyPay() {
@@ -31,11 +39,14 @@ public:
 };
 
 class FullTimeEmployee final : public Employee {
-  void calculatePay() override {}
+  void calculatePay() override {
+    hoursWorked = salary/hourlyRate;
+  }
 
 public:
   FullTimeEmployee() { 
     Employee::role = "Full-Time"; 
+    hourlyRate = 30;
   }
   void getEmployeeData() override {
     cout << "Enter details for " << role << " Employee" << endl;
@@ -78,7 +89,7 @@ public:
 };
 
 class Contractor final : public Employee {
-  void calculatePay() override { salary = hoursWorked * hourlyRate; }
+  void calculatePay() override { Employee::salary = hoursWorked * hourlyRate; }
 
 public:
   Contractor() { Employee::role = "Contractor"; }
@@ -151,6 +162,7 @@ int main(int argc, char *argv[]) {
   cout << "Weekly Payroll:" << endl;
   for (int x = 0; x < noOfEmployees; x++) {
     ep[x]->displayWeeklyPay();
+    // ep[x]->displayEmployeeDetails();
   }
 
   for (int i = 0; i < noOfEmployees; i++) {
