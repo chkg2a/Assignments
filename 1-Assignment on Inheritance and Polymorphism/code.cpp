@@ -13,10 +13,20 @@ protected:
   virtual void calculatePay() = 0;
 
 public:
-  Employee(){};
+  Employee(){
+    name = "Default";
+    role = "Default";
+    salary = 0;
+    hourlyRate = 0;
+    overTimeWork = 0;
+    hoursWorked = 0;
+  };
   virtual ~Employee(){};
   virtual void getEmployeeData() = 0;
-  virtual void displayWeeklyPay() = 0;
+  virtual void displayWeeklyPay() {
+    calculatePay();
+    cout << name << " (" << role << "): $" << salary << endl;
+  }
 };
 
 class FullTimeEmployee : public Employee {
@@ -24,11 +34,7 @@ class FullTimeEmployee : public Employee {
 
 public:
   FullTimeEmployee() {
-    Employee::name = "Default";
     Employee::role = "Full-Time";
-    Employee::salary = 0;
-    Employee::hourlyRate = 0;
-    Employee::hoursWorked = 0;
   }
   void getEmployeeData() {
     cout << "Enter details for " << role << " Employee" << endl;
@@ -37,10 +43,6 @@ public:
     cout << "Salary: ";
     cin >> salary;
     cin.ignore();
-  }
-  void displayWeeklyPay() {
-    calculatePay();
-    cout << name << " (" << role << "): $" << salary << endl;
   }
 };
 
@@ -55,12 +57,7 @@ class PartTimeEmployee : public Employee {
 
 public:
   PartTimeEmployee() {
-    Employee::name = "Default";
     Employee::role = "Part-Time";
-    Employee::salary = 0;
-    Employee::hourlyRate = 0;
-    Employee::overTimeWork = 0;
-    Employee::hoursWorked = 0;
   }
   void getEmployeeData() {
     cout << "Enter details for " << role << " Employee" << endl;
@@ -68,7 +65,6 @@ public:
     getline(cin, name);
     cout << "Hourly Rate: ";
     cin >> hourlyRate;
-    cin.ignore();
     cout << "Hours Worked: ";
     cin >> hoursWorked;
     cin.ignore();
@@ -86,11 +82,7 @@ class Contractor : public Employee {
 
 public:
   Contractor() {
-    Employee::name = "Default";
     Employee::role = "Contractor";
-    Employee::salary = 0;
-    Employee::hourlyRate = 0;
-    Employee::hoursWorked = 0;
   }
   void getEmployeeData() {
     cout << "Enter details for " << role << " Employee" << endl;
@@ -98,14 +90,9 @@ public:
     getline(cin, name);
     cout << "Hourly Rate: ";
     cin >> hourlyRate;
-    cin.ignore();
     cout << "Hours Worked: ";
     cin >> hoursWorked;
     cin.ignore();
-  }
-  void displayWeeklyPay() {
-    calculatePay();
-    cout << name << " (" << role << "): $" << salary << endl;
   }
 };
 
@@ -118,7 +105,6 @@ int main(int argc, char *argv[]) {
   cout << "You have a company" << endl;
   cout << "How many employees do you have?" << endl;
   cin >> noOfEmployees;
-  cin.ignore();
 
   Employee *ep[noOfEmployees];
 
@@ -126,25 +112,23 @@ int main(int argc, char *argv[]) {
     cout << "Please enter the correct number of employees." << endl;
     cout << "How many Full Times?" << endl;
     cin >> noOfFullTime;
-    cin.ignore();
     if ((noOfFullTime + noOfPartTime + noOfContractors) == noOfEmployees) {
       break;
     }
     cout << "How many Part Times?" << endl;
     cin >> noOfPartTime;
-    cin.ignore();
     if ((noOfFullTime + noOfPartTime + noOfContractors) == noOfEmployees) {
       break;
     }
     cout << "How many Contractors?" << endl;
     cin >> noOfContractors;
-    cin.ignore();
   } while ((noOfFullTime + noOfPartTime + noOfContractors) != noOfEmployees);
 
   cout << endl;
 
   while (true) {
     int z = 0;
+    cin.ignore();
     for (int q = 0; q < noOfFullTime; q++) {
       ep[z] = new FullTimeEmployee;
       ep[z]->getEmployeeData();
