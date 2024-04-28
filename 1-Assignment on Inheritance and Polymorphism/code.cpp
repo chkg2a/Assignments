@@ -21,6 +21,7 @@ public:
     overTimeWork = 0;
     hoursWorked = 0;
   };
+  Employee & operator=(const Employee &) = delete;
   virtual ~Employee(){};
   virtual void getEmployeeData() = 0;
   virtual void displayWeeklyPay() {
@@ -29,14 +30,14 @@ public:
   }
 };
 
-class FullTimeEmployee : public Employee {
-  void calculatePay() {}
+class FullTimeEmployee final : public Employee {
+  void calculatePay() override {}
 
 public:
   FullTimeEmployee() {
     Employee::role = "Full-Time";
   }
-  void getEmployeeData() {
+  void getEmployeeData() override {
     cout << "Enter details for " << role << " Employee" << endl;
     cout << "Name: ";
     getline(cin, name);
@@ -46,8 +47,8 @@ public:
   }
 };
 
-class PartTimeEmployee : public Employee {
-  void calculatePay() {
+class PartTimeEmployee final : public Employee {
+  void calculatePay() override {
     if (hoursWorked > 40) {
       overTimeWork = hoursWorked - 40;
     }
@@ -59,7 +60,7 @@ public:
   PartTimeEmployee() {
     Employee::role = "Part-Time";
   }
-  void getEmployeeData() {
+  void getEmployeeData() override {
     cout << "Enter details for " << role << " Employee" << endl;
     cout << "Name: ";
     getline(cin, name);
@@ -69,7 +70,7 @@ public:
     cin >> hoursWorked;
     cin.ignore();
   }
-  void displayWeeklyPay() {
+  void displayWeeklyPay() override{
     calculatePay();
     cout << name << " (" << role << "): $" << salary << " ("
          << hoursWorked - overTimeWork << " regular hours + " << overTimeWork
@@ -77,14 +78,14 @@ public:
   }
 };
 
-class Contractor : public Employee {
-  void calculatePay() { salary = hoursWorked * hourlyRate; }
+class Contractor final : public Employee {
+  void calculatePay() override{ salary = hoursWorked * hourlyRate; }
 
 public:
   Contractor() {
     Employee::role = "Contractor";
   }
-  void getEmployeeData() {
+  void getEmployeeData() override {
     cout << "Enter details for " << role << " Employee" << endl;
     cout << "Name: ";
     getline(cin, name);
