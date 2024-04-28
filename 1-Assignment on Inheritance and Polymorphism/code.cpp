@@ -34,7 +34,9 @@ class FullTimeEmployee final : public Employee {
   void calculatePay() override {}
 
 public:
-  FullTimeEmployee() { Employee::role = "Full-Time"; }
+  FullTimeEmployee() { 
+    Employee::role = "Full-Time"; 
+  }
   void getEmployeeData() override {
     cout << "Enter details for " << role << " Employee" << endl;
     cout << "Name: ";
@@ -47,10 +49,8 @@ public:
 
 class PartTimeEmployee final : public Employee {
   void calculatePay() override {
-    if (hoursWorked > 40) {
-      overTimeWork = hoursWorked - 40;
-    }
     auto makeSalary = [&]() {
+      overTimeWork = (hoursWorked > 40) ? hoursWorked - 40 : 0;
       return ((hoursWorked - overTimeWork) * hourlyRate) +
              (overTimeWork * hourlyRate * 1.5);
     };
