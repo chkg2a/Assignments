@@ -66,6 +66,7 @@ public:
     role = "Part-Time";
     salary = 0;
     hourlyRate = 0;
+    overTimeWork = 0;
     hoursWorked = 0;
   }
   void getEmployeeData() {
