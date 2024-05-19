@@ -1,7 +1,67 @@
 ---------------------
-Title : lkjasdf
-Author : lkasjf
-Year Of Publication : 0
 ID : 1
-Type : Fiction
-Genre : 
+Title : The Fifth Science
+Author : Exurb1a
+Year Of Publication : 2018
+Genre : Science Fiction
+---------------------
+ID : 2
+Title : Atomic Habits
+Type : Non Fiction
+Author : James Clear
+Year Of Publication : 2014
+Subject : Self Helf
+---------------------
+ID : 3
+Title : CCNA 200-301 Official Cert Guide
+Type : Non Fiction
+Author : Odom
+Year Of Publication : 2020
+Subject : Computer Networking
+---------------------
+ID : 4
+Title : Dune
+Author : Frank Herbert
+Year Of Publication : 2006
+Genre : Science Fiction
+---------------------
+ID : 5
+Title : Night Watch
+Author : Jayne Anne Phillips
+Year Of Publication : 2000
+Genre : Fiction
+---------------------
+ID : 6
+Title : The subtle art of not giving a fuck
+Type : Non Fiction
+Author : Mark Manson
+Year Of Publication : 2014
+Subject : Self Help
+---------------------
+ID : 7
+Title : C++ Programming Language, The
+Type : Non Fiction
+Author : Stroustrup Bjarne
+Year Of Publication : 2013
+Subject : C++
+---------------------
+ID : 8
+Title : Just For Fun
+Type : Non Fiction
+Author : Linus Torvalds
+Year Of Publication : 2002
+Subject : Linux
+---------------------
+ID : 9
+Title : Unix and Linux System Adminstration Handbook
+Type : Non Fiction
+Author : Evi Nemeth
+Year Of Publication : 2017
+Subject : Linux
+---------------------
+ID : 10
+Title : Design Patterns
+Type : Non Fiction
+Author : Gamma Erich
+Year Of Publication : 1994
+Subject : Programming
