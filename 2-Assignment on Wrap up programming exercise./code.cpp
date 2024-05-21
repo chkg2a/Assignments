@@ -16,7 +16,20 @@ public:
   Book() { noOfBooksAdded++; };
   virtual ~Book(){};
   virtual void displayInfo() = 0;
-  virtual void setBookDetails() = 0;
+  virtual void setBookDetails(){
+    cout << "--Please enter the " << type << " Book detail--" << endl;
+    cout << "Title : ";
+    getline(cin, title);
+    cout << "Author : ";
+    getline(cin, author);
+    cout << "Year of Publication : ";
+    cin >> yearOfPublication;
+    bookDetails = "---------------------\nID : " + to_string(noOfBooksAdded) + 
+                  "\nTitle : " + title +
+                  "\nType : " + type +
+                  "\nAuthor : " + author +
+                  "\nYear Of Publication : " + to_string(yearOfPublication) + '\n';
+  };
   string getBookDetails() { return bookDetails; }
 };
 
@@ -27,22 +40,11 @@ public:
   Fiction() { type = "Fiction"; }
   void displayInfo() override { cout << bookDetails; }
   void setBookDetails() override {
-    cout << "--Please enter the " << type << " Book detail--" << endl;
-    cout << "Title : ";
-    getline(cin, title);
-    cout << "Author : ";
-    getline(cin, author);
-    cout << "Year of Publication : ";
-    cin >> yearOfPublication;
+    Book::setBookDetails();
     cout << "Genre : ";
     cin.ignore();
     getline(cin, genre);
-    bookDetails = "---------------------\nID : " + to_string(noOfBooksAdded) + 
-                  "\nTitle : " + title +
-                  "\nType : " + type +
-                  "\nAuthor : " + author +
-                  "\nYear Of Publication : " + to_string(yearOfPublication) +
-                  "\nGenre : " + genre + '\n';
+    bookDetails += "Genre : " + genre + '\n';
   }
 };
 
@@ -53,22 +55,11 @@ public:
   NonFiction() { type = "Non Fiction"; }
   void displayInfo() override { cout << bookDetails; }
   void setBookDetails() override {
-    cout << "--Please enter the " << type << " Book detail--" << endl;
-    cout << "Title : ";
-    getline(cin, title);
-    cout << "Author : ";
-    getline(cin, author);
-    cout << "Year of Publication : ";
-    cin >> yearOfPublication;
+    Book::setBookDetails();
     cout << "Subject : ";
     cin.ignore();
     getline(cin, subject);
-    bookDetails = "---------------------\nID : " + to_string(noOfBooksAdded) + 
-                  "\nTitle : " + title +
-                  "\nType : " + type +
-                  "\nAuthor : " + author +
-                  "\nYear Of Publication : " + to_string(yearOfPublication) +
-                  "\nSubject : " + subject + '\n';
+    bookDetails += "Subject : " + subject + '\n';
   }
 };
 
@@ -120,9 +111,23 @@ void replacePrevFileData() {
 
 int main() {
   int noOfBooks = 10;
+  char replaceData;
   Book *books[noOfBooks];
 
-  replacePrevFileData();
+  checkReplace: 
+  cout << "Do you want to replace the existing File : ";
+  cin >> replaceData;
+
+  switch(replaceData){
+    case 'y':
+      replacePrevFileData();
+      break;
+    case 'n':
+      break;
+    default:
+      goto checkReplace;
+      break;
+  }
 
   for (int i = 0; i < noOfBooks; i++) {
     File fileObj;
