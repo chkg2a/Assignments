@@ -10,23 +10,22 @@ protected:
   string bookDetails;
   string type;
   int yearOfPublication;
-  static int noOfBooksAdded;
 
 public:
-  Book() { noOfBooksAdded++; };
+  Book(){};
   virtual ~Book(){};
   virtual void displayInfo() = 0;
   virtual void setBookDetails() = 0;
   string getBookDetails() { return bookDetails; }
 };
 
-class Fiction final : public Book {
+class Fiction : public Book {
   string genre;
 
 public:
   Fiction() { type = "Fiction"; }
-  void displayInfo() override { cout << bookDetails; }
-  void setBookDetails() override {
+  void displayInfo() { cout << bookDetails; }
+  void setBookDetails() {
     cout << "--Please enter the " << type << " Book detail--" << endl;
     cout << "Title : ";
     getline(cin, title);
@@ -37,22 +36,20 @@ public:
     cout << "Genre : ";
     cin.ignore();
     getline(cin, genre);
-    bookDetails = "---------------------\nID : " + to_string(noOfBooksAdded) + 
-                  "\nTitle : " + title +
-                  "\nType : " + type +
-                  "\nAuthor : " + author +
+    bookDetails = "---------------------\nTitle : " + title +
+                  "\nType : " + type + "\nAuthor : " + author +
                   "\nYear Of Publication : " + to_string(yearOfPublication) +
                   "\nGenre : " + genre + '\n';
   }
 };
 
-class NonFiction final : public Book {
+class NonFiction : public Book {
   string subject;
 
 public:
   NonFiction() { type = "Non Fiction"; }
-  void displayInfo() override { cout << bookDetails; }
-  void setBookDetails() override {
+  void displayInfo() { cout << bookDetails; }
+  void setBookDetails() {
     cout << "--Please enter the " << type << " Book detail--" << endl;
     cout << "Title : ";
     getline(cin, title);
@@ -63,69 +60,19 @@ public:
     cout << "Subject : ";
     cin.ignore();
     getline(cin, subject);
-    bookDetails = "---------------------\nID : " + to_string(noOfBooksAdded) + 
-                  "\nTitle : " + title +
-                  "\nType : " + type +
-                  "\nAuthor : " + author +
+    bookDetails = "---------------------\nTitle : " + title +
+                  "\nType : " + type + "\nAuthor : " + author +
                   "\nYear Of Publication : " + to_string(yearOfPublication) +
                   "\nSubject : " + subject + '\n';
   }
 };
 
-class File {
-  string filename;
-  ifstream iFile;
-  ofstream oFile;
-
-public:
-  File() { filename = "library.txt"; }
-  File(string fn) { filename = fn; }
-  ~File() {
-    iFile.close();
-    oFile.close();
-  }
-  void saveData(string text, ios_base::openmode __mode) {
-    oFile.open(filename, __mode);
-    if (!oFile) {
-      cerr << "ERROR couldn't save";
-      return;
-    }
-    cout << "Saving to file" << endl;
-    oFile << text;
-    oFile.close();
-  }
-  string readData() {
-    string text;
-    string finalText = "";
-    iFile.open(filename, ios::in);
-    if (!iFile) {
-      cerr << "Failed to read" << endl;
-      return "";
-    }
-    while (getline(iFile, text)) {
-      finalText += text + '\n';
-    }
-    iFile.close();
-    return finalText;
-  }
-};
-
-int Book::noOfBooksAdded = 0;
-
-void replacePrevFileData() {
-  cout << "Replacing Previous Data" << endl;
-  File temp;
-  temp.saveData("", ios::out);
-}
-
 int main() {
+  string filename = "library.txt";
   int noOfBooks = 10;
   Book *books[noOfBooks];
 
-  replacePrevFileData();
-
   for (int i = 0; i < noOfBooks; i++) {
-    File fileObj;
   rerun:
     char bookType;
     string bookData;
@@ -147,17 +94,29 @@ int main() {
       cout << "Please enter correct format either N or F" << endl;
       goto rerun;
     }
-    fileObj.saveData(bookData, ios::app);
+    ofstream file(filename, ios::app);
+    if (file) {
+      cout << "Successfully Saved to library.txt\n";
+      file << bookData;
+    } else {
+      cout << "Failed to Save to file\n";
+    }
+    file.close();
   }
-
-  File fileObj;
-
-  cout << "---------------------" << endl;
-  cout << "--Reading File Content--" << endl;
-  cout << fileObj.readData();
-  cout << "---------------------" << endl;
-  cout << "--End of File Content--" << endl;
-  cout << "---------------------" << endl;
+  ifstream file(filename, ios::in);
+  if (file) {
+    string text;
+    cout << "---------------------" << endl;
+    cout << "--Reading File Content--" << endl;
+    while (getline(file, text)) {
+      cout << text << endl;
+    }
+    cout << "---------------------" << endl;
+    cout << "--End of File Content--" << endl;
+    cout << "---------------------" << endl;
+  } else {
+    cout << "Failed to read from file.\n";
+  }
 
   return 0;
 }
