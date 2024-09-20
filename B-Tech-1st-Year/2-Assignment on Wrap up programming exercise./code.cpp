@@ -115,14 +115,14 @@ int main() {
   Book *books[noOfBooks];
 
   checkReplace: 
-  cout << "Do you want to replace the existing File : ";
+  cout << "Do you want to replace the existing File (Y/N): ";
   cin >> replaceData;
 
   switch(replaceData){
-    case 'y':
+    case 'Y':
       replacePrevFileData();
       break;
-    case 'n':
+    case 'N':
       break;
     default:
       goto checkReplace;
